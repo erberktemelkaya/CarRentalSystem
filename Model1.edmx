@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ArabaKiralamaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Admin">
+          <Key>
+            <PropertyRef Name="Admin_ID" />
+          </Key>
+          <Property Name="Admin_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Admin_KullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Admin_Sifre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_Araba">
+          <Key>
+            <PropertyRef Name="Araba_ID" />
+          </Key>
+          <Property Name="Araba_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Araba_Model" Type="nvarchar" MaxLength="50" />
+          <Property Name="Araba_Renk" Type="nvarchar" MaxLength="50" />
+          <Property Name="Araba_YakitTuru" Type="nvarchar" MaxLength="50" />
+          <Property Name="Araba_VitesTuru" Type="nvarchar" MaxLength="50" />
+          <Property Name="Araba_Yas" Type="tinyint" />
+          <Property Name="Araba_Kapasite" Type="tinyint" />
+          <Property Name="Araba_EhliyetYasSarti" Type="tinyint" />
+          <Property Name="Araba_Sehir" Type="nvarchar" MaxLength="20" />
+          <Property Name="Araba_Durum" Type="bit" />
+          <Property Name="Araba_Foto" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tbl_Musteri">
+          <Key>
+            <PropertyRef Name="Musteri_ID" />
+          </Key>
+          <Property Name="Musteri_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Musteri_AdSoyad" Type="nvarchar" MaxLength="50" />
+          <Property Name="Musteri_TC" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Musteri_DogumTarihi" Type="date" />
+          <Property Name="Musteri_TelNo" Type="nvarchar" MaxLength="11" />
+          <Property Name="Musteri_Email" Type="nvarchar" MaxLength="20" />
+          <Property Name="Musteri_EhliyetAlmaTarihi" Type="date" />
+          <Property Name="Musteri_Sehir" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Tbl_Satis">
+          <Key>
+            <PropertyRef Name="Satis_ID" />
+          </Key>
+          <Property Name="Satis_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Satis_AlisTarihi" Type="date" />
+          <Property Name="Satis_TeslimTarihi" Type="date" />
+          <Property Name="Araba_ID" Type="int" />
+          <Property Name="Musteri_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Tbl_Satis_Tbl_Araba">
+          <End Role="Tbl_Araba" Type="Self.Tbl_Araba" Multiplicity="0..1" />
+          <End Role="Tbl_Satis" Type="Self.Tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Araba">
+              <PropertyRef Name="Araba_ID" />
+            </Principal>
+            <Dependent Role="Tbl_Satis">
+              <PropertyRef Name="Araba_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Satis_Tbl_Musteri">
+          <End Role="Tbl_Musteri" Type="Self.Tbl_Musteri" Multiplicity="0..1" />
+          <End Role="Tbl_Satis" Type="Self.Tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Musteri">
+              <PropertyRef Name="Musteri_ID" />
+            </Principal>
+            <Dependent Role="Tbl_Satis">
+              <PropertyRef Name="Musteri_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="satistablosugetir" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ArabaKiralamaModelStoreContainer">
+          <EntitySet Name="Tbl_Admin" EntityType="Self.Tbl_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Araba" EntityType="Self.Tbl_Araba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Musteri" EntityType="Self.Tbl_Musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Satis" EntityType="Self.Tbl_Satis" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Satis_Tbl_Araba" Association="Self.FK_Tbl_Satis_Tbl_Araba">
+            <End Role="Tbl_Araba" EntitySet="Tbl_Araba" />
+            <End Role="Tbl_Satis" EntitySet="Tbl_Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Satis_Tbl_Musteri" Association="Self.FK_Tbl_Satis_Tbl_Musteri">
+            <End Role="Tbl_Musteri" EntitySet="Tbl_Musteri" />
+            <End Role="Tbl_Satis" EntitySet="Tbl_Satis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArabaKiralamaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Araba">
+          <Key>
+            <PropertyRef Name="Araba_ID" />
+          </Key>
+          <Property Name="Araba_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Araba_Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Araba_Renk" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Araba_YakitTuru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Araba_VitesTuru" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Araba_Yas" Type="Byte" />
+          <Property Name="Araba_Kapasite" Type="Byte" />
+          <Property Name="Araba_EhliyetYasSarti" Type="Byte" />
+          <Property Name="Araba_Sehir" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_Satis" Relationship="Self.FK_Tbl_Satis_Tbl_Araba" FromRole="Tbl_Araba" ToRole="Tbl_Satis" />
+          <Property Name="Araba_Durum" Type="Boolean" />
+          <Property Name="Araba_Foto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Musteri">
+          <Key>
+            <PropertyRef Name="Musteri_ID" />
+          </Key>
+          <Property Name="Musteri_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Musteri_AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Musteri_TC" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Musteri_DogumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Musteri_TelNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Musteri_Email" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Musteri_EhliyetAlmaTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Musteri_Sehir" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_Satis" Relationship="Self.FK_Tbl_Satis_Tbl_Musteri" FromRole="Tbl_Musteri" ToRole="Tbl_Satis" />
+        </EntityType>
+        <EntityType Name="Tbl_Satis">
+          <Key>
+            <PropertyRef Name="Satis_ID" />
+          </Key>
+          <Property Name="Satis_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Satis_AlisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Satis_TeslimTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Araba_ID" Type="Int32" />
+          <Property Name="Musteri_ID" Type="Int32" />
+          <NavigationProperty Name="Tbl_Araba" Relationship="Self.FK_Tbl_Satis_Tbl_Araba" FromRole="Tbl_Satis" ToRole="Tbl_Araba" />
+          <NavigationProperty Name="Tbl_Musteri" Relationship="Self.FK_Tbl_Satis_Tbl_Musteri" FromRole="Tbl_Satis" ToRole="Tbl_Musteri" />
+        </EntityType>
+        <Association Name="FK_Tbl_Satis_Tbl_Araba">
+          <End Role="Tbl_Araba" Type="Self.Tbl_Araba" Multiplicity="0..1" />
+          <End Role="Tbl_Satis" Type="Self.Tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Araba">
+              <PropertyRef Name="Araba_ID" />
+            </Principal>
+            <Dependent Role="Tbl_Satis">
+              <PropertyRef Name="Araba_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Satis_Tbl_Musteri">
+          <End Role="Tbl_Musteri" Type="Self.Tbl_Musteri" Multiplicity="0..1" />
+          <End Role="Tbl_Satis" Type="Self.Tbl_Satis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Musteri">
+              <PropertyRef Name="Musteri_ID" />
+            </Principal>
+            <Dependent Role="Tbl_Satis">
+              <PropertyRef Name="Musteri_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArabaKiralamaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Araba" EntityType="Self.Tbl_Araba" />
+          <EntitySet Name="Tbl_Musteri" EntityType="Self.Tbl_Musteri" />
+          <EntitySet Name="Tbl_Satis" EntityType="Self.Tbl_Satis" />
+          <AssociationSet Name="FK_Tbl_Satis_Tbl_Araba" Association="Self.FK_Tbl_Satis_Tbl_Araba">
+            <End Role="Tbl_Araba" EntitySet="Tbl_Araba" />
+            <End Role="Tbl_Satis" EntitySet="Tbl_Satis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Satis_Tbl_Musteri" Association="Self.FK_Tbl_Satis_Tbl_Musteri">
+            <End Role="Tbl_Musteri" EntitySet="Tbl_Musteri" />
+            <End Role="Tbl_Satis" EntitySet="Tbl_Satis" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Admin" EntityType="ArabaKiralamaModel.Tbl_Admin" />
+          <FunctionImport Name="satistablosugetir" ReturnType="Collection(ArabaKiralamaModel.satistablosugetir_Result)" />
+        </EntityContainer>
+        <EntityType Name="Tbl_Admin">
+          <Key>
+            <PropertyRef Name="Admin_ID" />
+          </Key>
+          <Property Name="Admin_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Admin_KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Admin_Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="satistablosugetir_Result">
+          <Property Type="String" Name="Müşteri_Ad_Soyad" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Araba_Model" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Şehir" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="Alış_Tarihi" Nullable="true" />
+          <Property Type="DateTime" Name="İade_Tarihi" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArabaKiralamaModelStoreContainer" CdmEntityContainer="ArabaKiralamaEntities">
+          <EntitySetMapping Name="Tbl_Araba">
+            <EntityTypeMapping TypeName="ArabaKiralamaModel.Tbl_Araba">
+              <MappingFragment StoreEntitySet="Tbl_Araba">
+                <ScalarProperty Name="Araba_Foto" ColumnName="Araba_Foto" />
+                <ScalarProperty Name="Araba_Durum" ColumnName="Araba_Durum" />
+                <ScalarProperty Name="Araba_ID" ColumnName="Araba_ID" />
+                <ScalarProperty Name="Araba_Model" ColumnName="Araba_Model" />
+                <ScalarProperty Name="Araba_Renk" ColumnName="Araba_Renk" />
+                <ScalarProperty Name="Araba_YakitTuru" ColumnName="Araba_YakitTuru" />
+                <ScalarProperty Name="Araba_VitesTuru" ColumnName="Araba_VitesTuru" />
+                <ScalarProperty Name="Araba_Yas" ColumnName="Araba_Yas" />
+                <ScalarProperty Name="Araba_Kapasite" ColumnName="Araba_Kapasite" />
+                <ScalarProperty Name="Araba_EhliyetYasSarti" ColumnName="Araba_EhliyetYasSarti" />
+                <ScalarProperty Name="Araba_Sehir" ColumnName="Araba_Sehir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Musteri">
+            <EntityTypeMapping TypeName="ArabaKiralamaModel.Tbl_Musteri">
+              <MappingFragment StoreEntitySet="Tbl_Musteri">
+                <ScalarProperty Name="Musteri_ID" ColumnName="Musteri_ID" />
+                <ScalarProperty Name="Musteri_AdSoyad" ColumnName="Musteri_AdSoyad" />
+                <ScalarProperty Name="Musteri_TC" ColumnName="Musteri_TC" />
+                <ScalarProperty Name="Musteri_DogumTarihi" ColumnName="Musteri_DogumTarihi" />
+                <ScalarProperty Name="Musteri_TelNo" ColumnName="Musteri_TelNo" />
+                <ScalarProperty Name="Musteri_Email" ColumnName="Musteri_Email" />
+                <ScalarProperty Name="Musteri_EhliyetAlmaTarihi" ColumnName="Musteri_EhliyetAlmaTarihi" />
+                <ScalarProperty Name="Musteri_Sehir" ColumnName="Musteri_Sehir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Satis">
+            <EntityTypeMapping TypeName="ArabaKiralamaModel.Tbl_Satis">
+              <MappingFragment StoreEntitySet="Tbl_Satis">
+                <ScalarProperty Name="Satis_ID" ColumnName="Satis_ID" />
+                <ScalarProperty Name="Satis_AlisTarihi" ColumnName="Satis_AlisTarihi" />
+                <ScalarProperty Name="Satis_TeslimTarihi" ColumnName="Satis_TeslimTarihi" />
+                <ScalarProperty Name="Araba_ID" ColumnName="Araba_ID" />
+                <ScalarProperty Name="Musteri_ID" ColumnName="Musteri_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Admin">
+            <EntityTypeMapping TypeName="ArabaKiralamaModel.Tbl_Admin">
+              <MappingFragment StoreEntitySet="Tbl_Admin">
+                <ScalarProperty Name="Admin_Sifre" ColumnName="Admin_Sifre" />
+                <ScalarProperty Name="Admin_KullaniciAdi" ColumnName="Admin_KullaniciAdi" />
+                <ScalarProperty Name="Admin_ID" ColumnName="Admin_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="satistablosugetir" FunctionName="ArabaKiralamaModel.Store.satistablosugetir">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ArabaKiralamaModel.satistablosugetir_Result">
+                <ScalarProperty Name="Müşteri_Ad_Soyad" ColumnName="Müşteri Ad Soyad" />
+                <ScalarProperty Name="Araba_Model" ColumnName="Araba Model" />
+                <ScalarProperty Name="Şehir" ColumnName="Şehir" />
+                <ScalarProperty Name="Alış_Tarihi" ColumnName="Alış Tarihi" />
+                <ScalarProperty Name="İade_Tarihi" ColumnName="İade Tarihi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
